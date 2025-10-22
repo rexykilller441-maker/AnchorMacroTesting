@@ -19,18 +19,10 @@ jobs:
           distribution: temurin
           java-version: 21
 
-      - name: Show java/gradle info (debug)
-        run: |
-          java -version
-          uname -a
-          ls -la
       - name: Make gradlew executable
         run: chmod +x ./gradlew
 
-      - name: Show gradle wrapper info (debug)
-        run: ./gradlew --version
-
-      - name: Build (no daemon)
+      - name: Build mod
         run: ./gradlew build --no-daemon
 
       - name: Upload Mod JAR
