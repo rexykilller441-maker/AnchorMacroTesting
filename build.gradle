@@ -1,7 +1,16 @@
-plugins {
-    id 'fabric-loom' version '1.5.5' // stable Loom version
-    id 'java'
+buildscript {
+    repositories {
+        mavenCentral()
+        maven { url = 'https://maven.fabricmc.net/' }
+        maven { url = 'https://maven.terraformersmc.com/releases' }
+    }
+    dependencies {
+        classpath 'net.fabricmc:fabric-loom:1.5.5'
+    }
 }
+
+apply plugin: 'java'
+apply plugin: 'fabric-loom'
 
 group = 'com.rexykiller'
 version = '1.0.0'
@@ -17,7 +26,6 @@ repositories {
 }
 
 dependencies {
-    // Minecraft + Fabric API
     minecraft "com.mojang:minecraft:1.21.1"
     mappings loom.layered {
         officialMojangMappings()
@@ -35,8 +43,7 @@ jar {
     manifest {
         attributes(
             'Implementation-Title': archivesBaseName,
-            'Implementation-Version': version,
-            'Fabric-Loom-Version': '1.5.5'
+            'Implementation-Version': version
         )
     }
 }
