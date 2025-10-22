@@ -32,9 +32,9 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build --no-daemon
 
-      # 5️⃣ Upload the build artifact (JAR)
+      # 5️⃣ Upload the build artifact (JAR) using new v4
       - name: Upload JAR Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: AnchorMacro-mod
           path: build/libs/*.jar
