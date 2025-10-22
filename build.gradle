@@ -1,33 +1,42 @@
-
 plugins {
-    id 'fabric-loom' version '1.5-SNAPSHOT'
-    id 'maven-publish'
+    id 'fabric-loom' version '1.5.5' // stable Loom version
+    id 'java'
 }
 
+group = 'com.rexykiller'
 version = '1.0.0'
-group = 'com.rexykiller.anchormacro'
+archivesBaseName = 'anchormacro'
+
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
 
 repositories {
     mavenCentral()
-    maven { url 'https://maven.fabricmc.net/' }
+    maven { url = 'https://maven.fabricmc.net/' }
+    maven { url = 'https://maven.terraformersmc.com/releases' }
 }
 
 dependencies {
+    // Minecraft + Fabric API
     minecraft "com.mojang:minecraft:1.21.1"
-    mappings loom.officialMojangMappings()
-    modImplementation "net.fabricmc:fabric-loader:0.16.0"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:0.103.0+1.21.1"
+    mappings loom.layered {
+        officialMojangMappings()
+    }
+    modImplementation "net.fabricmc:fabric-loader:0.15.7"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:0.89.2+1.21.1"
 }
 
-loom {
-    splitEnvironmentSourceSets()
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
 }
 
-java {
-    toolchain.languageVersion = JavaLanguageVersion.of(17)
-}
-
-tasks.withType(JavaCompile).configureEach {
-    it.options.encoding = "UTF-8"
-    it.options.release = 17
+jar {
+    from(sourceSets.main.output)
+    manifest {
+        attributes(
+            'Implementation-Title': archivesBaseName,
+            'Implementation-Version': version,
+            'Fabric-Loom-Version': '1.5.5'
+        )
+    }
 }
