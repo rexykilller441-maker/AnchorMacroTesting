@@ -5,7 +5,7 @@ buildscript {
         maven { url = 'https://maven.terraformersmc.com/releases' }
     }
     dependencies {
-        classpath 'net.fabricmc:fabric-loom:1.5.5'
+        classpath 'net.fabricmc:fabric-loom:1.6.11'
     }
 }
 
